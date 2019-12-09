@@ -2,7 +2,7 @@ xbook-frontend/node_modules/
 
 xbook-backend/lib/
 xbook-backend/bin/
-xbook-backend/lib64/
+xbook-backend/lib64
 
 *.pyc
 *.cfg
