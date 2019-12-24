@@ -7,14 +7,11 @@ jobs:
       - checkout
       - run:
           name: CD to frontend
-          command: cd xbook-frontend
-      - run:
-          name: The First Step
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
-      - run:
-          name: Code Has Arrived
-          command: |
+            cd xbook-frontend
             ls -al
-            echo '^^^That should look familiar^^^'
+      - run:
+          name: CD to backend
+          command: |
+            cd xbook-backend
+            ls -al
