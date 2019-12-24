@@ -9,9 +9,10 @@ jobs:
           name: CD to frontend
           command: |
             cd xbook-frontend
+            npm install
             ls -al
       - run:
           name: CD to backend
           command: |
             cd xbook-backend
-            ls -al
+            python3 test.py
