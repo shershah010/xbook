@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 
+import facebook
+graph = facebook.GraphAPI(access_token="your_token", version="2.12")
+
+
 app = Flask(__name__)
 CORS(app)
 
@@ -18,6 +22,8 @@ def execute():
 
 def get_response(command):
     return 'success', 200
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
