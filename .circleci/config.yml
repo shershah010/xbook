@@ -20,5 +20,5 @@ jobs:
           name: test backend
           command: |
             cd xbook-backend
-            pip3 install flask, unittest
+            pip install flask, unittest
             python3 test.py
