@@ -22,6 +22,7 @@ jobs:
           command: |
             cd xbook-backend
             sudo pip install -r requirements.txt
+            sudo pip install flask-cors --upgrade
             python test.py
 
 workflows:
