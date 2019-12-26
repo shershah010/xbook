@@ -7,21 +7,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install dependency
-          command: |
-            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-            python get-pip.py
-            pip install -U pip
-      - run:
           name: test frontend
           command: |
             cd xbook-frontend
             sudo npm install -g npm@latest
             npm install
-            ls -al
+            npm test
       - run:
           name: test backend
           command: |
             cd xbook-backend
-            pip install flask, unittest
-            python3 test.py
+            sudo pip install flask, unittest
+            python test.py
