@@ -21,7 +21,7 @@ jobs:
           name: test backend
           command: |
             cd xbook-backend
-            sudo pip install flask, unittest
+            pip install -r requirements.txt
             python test.py
 
 workflows:
