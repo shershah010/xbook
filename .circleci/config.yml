@@ -24,7 +24,7 @@ jobs:
             sudo pip install flask, unittest
             python test.py
 
-workflow:
+workflows:
   version: 2.1
   build:
     jobs:
