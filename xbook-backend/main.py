@@ -1,24 +1,20 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 
-import facebook
-graph = facebook.GraphAPI(access_token="your_token", version="2.12")
-
-
 app = Flask(__name__)
-CORS(app)
-
-@app.route('/')
-def root():
-    return "Hello World!"
+cors = CORS(app, resources={r"/": {"origins": "*"}})
 
 @app.route('/execute', methods=['POST'])
 def execute():
-    if ('execute' not in request.json.keys()):
-        return jsonify({'response': 'BAD COMMAND'}), 400
-    command = request.json['execute'];
+    response, status = execute_helper(request.json['command'])
+    return jsonify(response), status
+
+
+def execute_helper(command):
+    if command is None:
+        return {'response': 'BAD COMMAND'}, 400
     response, status = get_response(command)
-    return {'response', response}, status
+    return {'response': response}, status
 
 def get_response(command):
     return 'success', 200
