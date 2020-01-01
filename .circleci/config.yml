@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  one:
+  frontend:
     docker:
       - image: circleci/node:10.16.3
     steps:
@@ -12,7 +12,7 @@ jobs:
             sudo npm install -g npm@latest
             npm install
             npm test
-  two:
+  backend:
     docker:
       - image: circleci/python:3.7.3
     steps:
@@ -28,5 +28,5 @@ workflows:
   version: 2.1
   build:
     jobs:
-      - one
-      - two
+      - frontend
+      - backend

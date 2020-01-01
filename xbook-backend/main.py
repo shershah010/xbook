@@ -12,7 +12,7 @@ def execute():
 
 def execute_helper(command):
     if command is None:
-        return {'response': 'BAD COMMAND'}, 400
+        return {'response': 'NO COMMAND'}, 400
     response, status = get_response(command)
     return {'response': response}, status
 

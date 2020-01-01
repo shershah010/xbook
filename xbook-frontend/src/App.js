@@ -1,7 +1,16 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import './App.scss';
+
 import Command from './components/command/command';
 import Response from './components/response/response';
+import Policy from './components/policy/policy';
 
 class App extends React.Component {
 
@@ -33,14 +42,21 @@ class App extends React.Component {
     const children = [];
 
     for (let i = 0; i < this.state.messages.length; i += 1) {
-      children.push(<Response key={i + 'a'} mess={this.state.messages[i]}></Response>)
-      children.push(<Command key={i + 'b'} onLogin={this.onFacebookLogin} onEnter={this.onEnter}></Command>)
+      children.push(<Response key={i + 'a'} mess={this.state.messages[i]}></Response>);
+      children.push(<Command key={i + 'b'} onLogin={this.onFacebookLogin} onEnter={this.onEnter}></Command>);
     }
 
     return (
       <div className="App">
-        <Command onLogin={this.onFacebookLogin} onEnter={this.onEnter}></Command>
-        {children}
+        <Router>
+          <Switch>
+            <Route path='/' exact>
+              <Command onLogin={this.onFacebookLogin} onEnter={this.onEnter}></Command>
+              {children}
+            </Route>
+            <Route path='/policy' component={Policy} />
+          </Switch>
+        </Router>
       </div>
     );
   }

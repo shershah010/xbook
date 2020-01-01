@@ -32,13 +32,14 @@ class Command extends React.Component {
       const span = input.parentNode;
       span.removeChild(input);
       span.innerHTML += command;
-      let message = 'Response Message';
       if (command === 'login') {
         this.facebookLogin();
       } else if (command === 'logout') {
         window.FB.logout(function(response) {
           console.log(response);
         });
+      } else if (command === 'policy') {
+        window.location += 'policy';
       }
       this.accessBackend(command).then(message => {
         this.props.onEnter(message);
