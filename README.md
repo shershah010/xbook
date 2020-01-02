@@ -14,7 +14,11 @@ cd ..
 ```
 
 ## Frontend
-The frontend uses React. It also interfaces with the Facebook SDK and the Firebase Libraries.
+The frontend uses React. It also interfaces with the Facebook SDK and the Firebase Libraries. To host on Firebase, first check that you are on the `master` branch. Then run the following:
+```
+npm run-script build
+firebase deploy
+```
 
 ## Backend
 The backend is Python with Flask. Right now it is simple as it is only one endpoint. Because most of the web app is interfacing with Facebook, the backend has few uses.
