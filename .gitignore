@@ -1,8 +1,18 @@
 xbook-frontend/node_modules/
+xbook-frontend/build/
 
-xbook-backend/lib/
-xbook-backend/bin/
-xbook-backend/lib64
+
+xbook-backend/venv/
 
 *.pyc
-*.cfg
+xbook-backend/__pycache__/
+
+xbook-backend/instance/
+
+xbook-backend/.pytest_cache/
+xbook-backend/.coverage
+xbook-backend/htmlcov/
+
+xbook-backend/dist/
+xbook-backend/build/
+xbook-backend/*.egg-info/
