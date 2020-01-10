@@ -1,6 +1,8 @@
 # XBook
 A terminal-esque interface for Facebook
 
+[![CircleCI](https://circleci.com/gh/shershah010/xbook.svg?style=svg)](https://circleci.com/gh/shershah010/xbook)
+
 ## QuickStart
 Ensure that port 3000 and port 8080 are free and your browser allows Cross Origin Access
 ```
