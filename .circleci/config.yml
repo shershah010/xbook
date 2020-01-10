@@ -22,7 +22,8 @@ jobs:
           command: |
             cd xbook-backend
             sudo pip install -r requirements.txt
-            python test.py
+            (./cloud_sql_proxy -instances=xbook010:us-west1:xbook-db=tcp:3307) &
+            (wait 10 & python test.py) 
 
 workflows:
   version: 2.1
