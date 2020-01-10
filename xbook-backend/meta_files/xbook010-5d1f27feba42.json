@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "xbook010",
+  "private_key_id": "5d1f27feba42437329f93783aff7ce3df712e630",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCxk6sKm+Jo86Wz\nrIDNQX23V7r8RX2l+3rAovauYDaODpsAepHw8hWcFkOpPYrBm5KRs+zSSS1zS51b\nEjaH8Wy+kAkQ9Y7Tasjik+rY4gz3JW/Uffyc7RD3wGgmPWmB0Y99FCeELtDuGgNR\nR1822UhauV6j9THCh6ZOAp0yp6prIKGYsKgcCwZ+GzlqSYdGKpQ3GckVVMJnCmdm\nuplNDUttxRlXy6qpLFkL6ZXkUx0QGyKUmfxIGQiwci0LzglvHGtFPtQ258dHEC6v\nb5K2tPKig0Td9E2803AVv6pTYwFgG2Ln/MuRz6DWV0h6W3bsPL2dE5jwJZfoiiPq\nCrdI5vuzAgMBAAECggEAPxwfmCQhmbIp7Eq89fW2E8BirICX8LMJA8iHCh8YlHEd\nZlSpZGvtAS2qe03rb/Z150F+Q5gNRqITeQfmiHblcm5nQnc6/OlBHsF6H/1qpTVR\nYsAp1K2uL5bajOibhC8xoz7T8nbe+xgUoMDQVoJvZAroVzXvqtah5KyqKJQNDYgR\nRytjtZGs5ALdd//cWPL24NIgkJHSmPx3OVeh68x/SSrEJ0YwFv/vwkJooOJZX9c5\ntFoHoHAFjjLJ/rTGlx8qz8xmK02rNyvIKKGuXamdEuJOyZqNgHa3u6YFhjVwZx1b\nTNl/BScEB9AgB6lr/TH0DZ4pDzyzBLoQn7aFl+VI9QKBgQDvQlKTKT8Dw1YcFZ/1\nTHwI8o5GRsmZP3dAcxFPIqaLZvJSOuyNY8G5UhuJec9+vWJQEP1Ov6sSYiIc9Yn8\n7HVHGnd07J8JgBx8LsRAYqDD4IBJ8RuGPYkYZwkx3c5visiw7BL+GGpqarfAUpEY\nHqVBWgXK5YtmMZhCzpaNSRk/VwKBgQC+AHm3AfXgV31gK1ZsiT6cuVpqMgwtqFXT\nJuoeNnytLjhyn5ziHWRZw9wj7xKtHA/cUT4ZcbnI2BrUpaAtxUoQR24sjYkBmu62\n9Hk8KqGp1iux6BQR3lmtsIdtNRRL4S9jHWk4AnckgbmBcTNpMw0xNUvSBA3julRG\nCpB1FgjZBQKBgHSn778U80aQbWHQIWfm3Os36KrXROBVk313HU9qY63AihIR7Nib\ndQ84u3hyTftLt622Ouu0hGK4Ok3IYnlRiXUbsHbwEDL/pePeoY2LCTu4MJTc3EC9\nrCSbyF3p+gdksamh0TjXCrvMQL+jAl+yQXz1ubFN7oPrVoPsWneU1pyNAoGAR1ki\nW6iuzhnMiOp9P7CiBHROEYbNr++AmxQH4mSPmPC8Xb62SOrEnjjAV/YUy1C4XAFe\nEmv0WglcufGgHs/xKf/IzY4wnpuxfJ59UCyqHH7CVcJSlwsqHeEmWcoO3xemlc+b\njV7PorPcF1GM/rofABWFbU38cUGtF8gryuwFUokCgYAD10eADg1ZgrBIF6fAm0Nd\nbpfIveBE0292u33RjSgp+j63+p+ToW02q2MD7x7kp5j3qWYUre62PIy6q3LNnQSB\ntsKt5V5DgBO8HW8+zzIqyy9yzb/ckPYS2iyMQFVHguapcXCDvQg8uZbfBUdVc618\nUR9d8Qcuc//28nwph7hcJw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "xbook-service@xbook010.iam.gserviceaccount.com",
+  "client_id": "105776955415404414943",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/xbook-service%40xbook010.iam.gserviceaccount.com"
+}
