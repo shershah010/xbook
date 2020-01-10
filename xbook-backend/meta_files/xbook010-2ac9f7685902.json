@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "xbook010",
+  "private_key_id": "2ac9f7685902198834aacac10fd64308180fab4b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDMZyrLGrSWBfon\nKK5Rth/BJNFeKXwWtT38cA+e13bwvf/chdJGvLckiAlGnQZo9qolGpdJy4NciaXX\nTGCpsyuSX+Ww8Ws635qcP9QPUWxOrBTMI8Ikxyyq5OMeC3Et5yQfT03Q2Exi1kwv\nFQ+uT4h/kW8HfEh3HyGqGHC7qnH96hXLWU25Mw4lTX+FgtfvGXR3FR1w/7Sw43Er\nP7IJi+pQzbw+PGFhlIgdgYA1bOCWdZiwsUSQp4Sydr8qQkwo89CLI9SQZQXDLiQg\nyCSjizlpOaUjUKFj0hw+R4dyrVYT1MtiQvdSVPr2Is0BsRJCNSXJHi/JDUH9pREB\nQqw/+JLvAgMBAAECggEAZNqopkNchEOZvNWZQW8T9vhkJ8pfVFMELTjbtDvLD5ko\nFFahPM7jrK5EqWdUINlIdXtL15kHjVLLldI1RbZGkvgnPKm6B3gJ8Pubdh1uS9kj\nf+BK7FusQfwixhHOO+B3Fc3K7veypPfo6jhBnvfWOV94gaCEnuYo9aUOhsJgcXA7\npLxjlkTY4r+GNxlh1zjJQsBL2GBeqJNku8YKKYgx8rjqqW1gRK7ujyMuMRLGUlt6\nNTlrcx68EDFhbs5b1FywMIzaKV/2WxNTqjkG9rrKjUThlk3NJ7a9zEQipKlzhcLt\ngb/CcS/PmdUvmBOgv8fHP14e6KP0ttOyBc5a0K/JWQKBgQDnYW8hcK0UzckTZZ1p\ninz8H0cODFhyrX6OMd7KMgHkfVrWEhJy4Bdae8UgxAMXOY7xJx47r4DhegvXFEPG\neSZReaBl6euRkDOhKGhbSuqvYTuJwBjFs2sUMvIQkqsZwYCcwBlUM14ds5+9gKSV\n6VDaU+2/Ilb5W+m9ufFqWGOLtwKBgQDiJuQqYs+5p6Gsz7bvxpBsxbl+4CAQMIr7\nyK4xg8DbuKzp+k3F8J5oKen2eQqRlZozrZk4YjZYz7kVYExtCUMJM7KWME7bIun9\nzFb1Nfw/oQ47B4PxQhVXo6QJ8C2N/DLt/+wtjb3MTxTcJ2ri7eOFzJJG6n8Pw3Uz\nLhuEf/+iiQKBgEJU6GsJxlTEefSZmPr8vL/6p4Abge++VR2mplwI4goC9duQ6sEM\nBSXnfafbCZfK5HO15zDtK2F4f5R1NsjbSmTpHVaaLPJaCLMWxnQFkiodEdh3vaJP\nwU7VHBgsM+j6VEibuact4rlZGV5WVtizPn6YuPumeJCcDPJbMB5woHkZAoGATtGR\nKfigPyteXLVUI8NHqLFM0hxY8GuKtPAfTeCGgc2ebjmvi3IuM02QXjeXaGAEi0hQ\no2cPW+qhrgKPAF1/AKEE9/VENnm3pZ3nHLVBAggmxon7AUWv3IiK7m/H4LlqIqrU\nbJf+80sIkSYnyYlxh7thq9ekiyDrIvhJ3OcjeEkCgYAtPzE7Amqv83DRPb0iodwA\nDFNPmypInIpspOF55NTVAo5dlXz8TZNwm9UozoRMW1Auz88lAZz5gCQD4vCLe49B\n/yOYaTAT2to/YQ6AOAftyHtdokdotogO57CFpNTfsGDefzsNmGKWppFjecqkE/EP\ncOPDYybMsS6ryA/XlWLBnA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "xbook-sql-service@xbook010.iam.gserviceaccount.com",
+  "client_id": "107139846093332814743",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/xbook-sql-service%40xbook010.iam.gserviceaccount.com"
+}

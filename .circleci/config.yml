@@ -22,7 +22,7 @@ jobs:
           name: test backend
           command: |
             cd xbook-backend
-            export GOOGLE_APPLICATION_CREDENTIALS="./meta_files/xbook010-5d1f27feba42.json" 
+            export GOOGLE_APPLICATION_CREDENTIALS="./meta_files/xbook010-2ac9f7685902.json" 
             sudo pip install -r ./meta_files/requirements.txt
             (./meta_files/cloud_sql_proxy -instances=xbook010:us-west1:xbook-db=tcp:3307) & (sleep 10; python test.py)
 
