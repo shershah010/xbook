@@ -1,0 +1,54 @@
+DROP DATABASE xbook;
+
+CREATE DATABASE xbook;
+
+USE xbook;
+
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Friends;
+DROP TABLE IF EXISTS Messages;
+DROP TABLE IF EXISTS Posts;
+DROP TABLE IF EXISTS Comments;
+
+CREATE TABLE IF NOT EXISTS Users(
+  token VARCHAR(10) NOT NULL,
+  username VARCHAR(50) NOT NULL,
+  firstname VARCHAR(50) NOT NULL,
+  lastname VARCHAR(50) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  PRIMARY KEY (token)
+);
+
+CREATE TABLE IF NOT EXISTS Friends(
+  origin VARCHAR(10) NOT NULL,
+  destination VARCHAR(10) NOT NULL,
+  FOREIGN KEY (origin) REFERENCES Users(token),
+  FOREIGN KEY (destination) REFERENCES Users(token)
+);
+
+CREATE TABLE IF NOT EXISTS Messages(
+  id VARCHAR(10) NOT NULL,
+  origin VARCHAR(10) NOT NULL,
+  destination VARCHAR(10) NOT NULL,
+  message VARCHAR(4000) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (origin) REFERENCES Users(token),
+  FOREIGN KEY (destination) REFERENCES Users(token)
+);
+
+CREATE TABLE IF NOT EXISTS Posts(
+  id VARCHAR(10) NOT NULL,
+  origin VARCHAR(10) NOT NULL,
+  message VARCHAR(4000) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (origin) REFERENCES Users(token)
+);
+
+CREATE TABLE IF NOT EXISTS Comments(
+  id VARCHAR(10) NOT NULL,
+  origin VARCHAR(10) NOT NULL,
+  post_id VARCHAR(10) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (origin) REFERENCES Users(token),
+  FOREIGN KEY (post_id) REFERENCES Posts(id)
+);
