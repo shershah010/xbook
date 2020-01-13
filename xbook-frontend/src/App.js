@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 import './App.scss';
@@ -15,49 +14,70 @@ import Login from './components/login/login';
 
 class App extends React.Component {
 
-  displayData = [];
+  components = [];
   state = {
     username: null,
-    token: null,
-    messages: []
+    token: null
   };
 
+  constructor(props) {
+    super(props);
+    this.components.push(<Command
+      key='0'
+      onEnter={this.handleCommand.bind(this)}
+      token={this.props.token}></Command>);
+  }
+
+  displayResponse(message) {
+    this.components.push(<Response
+      key={this.components.length}
+      mess={message}></Response>);
+  }
+
+  displayCommand() {
+    this.components.push(<Command
+      key={this.components.length}
+      onEnter={this.handleCommand.bind(this)}
+      username={this.state.username}
+      token={this.state.token}></Command>);
+  }
+
   handleCommand(message) {
-    this.state.messages.push(message);
-    this.setState({
-      messages: this.state.messages
-    });
+    switch (message) {
+      case 'login':
+        this.components.push(<Login
+          key={this.components.length}
+          onEnter={this.handleLogin.bind(this)}></Login>);
+        break;
+      default:
+        this.displayResponse(message);
+        this.displayCommand();
+    }
+    this.forceUpdate();
   }
 
   handleLogin(username, token) {
-    this.state.messages.push('Successful Login');
-    this.setState({
-      username: username,
-      token: token,
-      messages: this.state.messages
-    });
+    console.log(username, token);
+    if (username === null && token === null) {
+      this.displayResponse('Incorrect username or password');
+    } else {
+      this.setState({
+        username: username,
+        token: token,
+      });
+      this.displayResponse('Successful Login');
+    }
+    this.displayCommand();
+    this.forceUpdate();
   }
 
-
   render() {
-    const children = [];
-
-    for (let i = 0; i < this.state.messages.length; i += 1) {
-      if (this.state.messages[i] === 'login') {
-          children.push(<Login key={i + 'b'} onEnter={this.handleLogin.bind(this)}></Login>);
-      } else {
-        children.push(<Response key={i + 'a'} mess={this.state.messages[i]}></Response>);
-        children.push(<Command key={i + 'b'} onEnter={this.handleCommand.bind(this)} username={this.state.username}></Command>);
-      }
-    }
-
     return (
       <div className="App">
         <Router>
           <Switch>
             <Route path='/' exact>
-              <Command onEnter={this.handleCommand.bind(this)}></Command>
-              {children}
+              {this.components}
             </Route>
             <Route path='/policy' component={Policy} />
           </Switch>

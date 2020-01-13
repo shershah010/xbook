@@ -6,30 +6,30 @@ const axios = require('axios');
 class Command extends React.Component {
 
   backendUrl = null;
+  handle = null;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.backendUrl = 'http://localhost:8080/';
-  }
-
-  setFocus() {
-    setTimeout(() => {
-      document.getElementsByClassName('cmd')[0].focus();
-    }, 5);
+    this.handle = '>>> ';
+    if (this.props.username !== null && this.props.username !== undefined) {
+      this.handle = this.props.username + ' ' + this.handle;
+    }
   }
 
   sendToBackend(command) {
-    const data = {'command': command};
+    const data = {
+      'command': command,
+      'token': this.props.token
+    };
     const headers = {headers: {'Access-Control-Allow-Origin': '*'}};
     return axios.post(this.backendUrl + 'execute', data, headers)
       .then(response => {
-        if (response.data['response'] === 'BAD COMMAND') {
-            return command + ': command not found'
-        }
-        return response.data['response'];
+        return response.data;
       })
       .catch(error => {
-        return 'BACKEND FAILURE! ' + error;
+        console.log(error);
+        return {'response': 'BACKEND FAILURE! ' + error};
       });
   }
 
@@ -43,29 +43,33 @@ class Command extends React.Component {
       span.removeChild(input);
       span.innerHTML += command;
 
+      if (command === 'login') {
+        this.props.onEnter('login', this.handle);
+        return;
+      }
 
       this.sendToBackend(command).then(message => {
-        this.props.onEnter(message);
+        if (message['response'] === 'BAD COMMAND') {
+          this.props.onEnter(command + ': command not found');
+        } else {
+          this.props.onEnter(message['response']);
+        }
       });
     }
   }
 
   render() {
-
-    let handle = '>>> ';
-    if (this.props.username !== null && this.props.username !== undefined) {
-      handle = this.props.username + ' ' + handle;
-    }
     return (
-      <span>{handle}
-        <input
-          className='cmd'
-          onBlur={this.setFocus}
-          onKeyDown={this.execute.bind(this)}
-          type='text'
-          autoFocus>
-        </input>
+      <div>
+        <span>{this.handle}
+          <input
+            className='cmd'
+            onKeyDown={this.execute.bind(this)}
+            type='text'
+            autoFocus>
+          </input>
       </span>
+    </div>
     );
   }
 }
