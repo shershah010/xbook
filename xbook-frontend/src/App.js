@@ -49,6 +49,12 @@ class App extends React.Component {
           key={this.components.length}
           onEnter={this.handleLogin.bind(this)}></Login>);
         break;
+      case 'logout':
+        this.state = {
+          username: null,
+          token: null
+        };
+        message = 'Successful ' + message;
       default:
         this.displayResponse(message);
         this.displayCommand();
