@@ -11,6 +11,7 @@ class Register extends React.Component {
   constructor() {
     super();
     this.backendUrl = 'http://localhost:8080/';
+    this.data = {};
   }
 
   setFocus() {
@@ -38,7 +39,9 @@ class Register extends React.Component {
     const elVal = input.value;
 
     span.removeChild(input);
-    span.innerHTML += elVal;
+    if (element !== 'password') {
+      span.innerHTML += elVal;
+    }
 
     this.data[element] = elVal;
   }
@@ -98,7 +101,7 @@ class Register extends React.Component {
               </input>
           </span>
           <br />
-          <span>lastname:
+          <span className="hidden">lastname:
             <input
               className="lastname cmd"
               onKeyDown={this.onLastnameEnter.bind(this)}
@@ -107,7 +110,7 @@ class Register extends React.Component {
               </input>
           </span>
           <br />
-          <span>username:
+          <span className="hidden">username:
             <input
               className="username cmd"
               onKeyDown={this.onUsernameEnter.bind(this)}

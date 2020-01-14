@@ -52,7 +52,9 @@ class App extends React.Component {
         break;
       case 'register':
         this.components.push(<Register
-          key={this.components.length}></Register>)
+          key={this.components.length}
+          onEnter={this.handleRegister.bind(this)}></Register>);
+        break;
       case 'logout':
         this.state = {
           username: null,
@@ -81,16 +83,21 @@ class App extends React.Component {
     this.forceUpdate();
   }
 
-  handleLogin(flag, username, token) {
+  handleRegister(flag, username, token) {
     switch (flag) {
       case 0:
         this.displayResponse('Username already taken.');
+        this.displayCommand();
+        this.forceUpdate();
         break;
       case 1:
         this.displayResponse('Backend Error');
+        this.displayCommand();
+        this.forceUpdate();
         break;
       case 2:
         this.handleLogin(username, token);
+        break;
     }
   }
 

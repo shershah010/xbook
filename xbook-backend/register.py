@@ -11,7 +11,7 @@ def register_helper(request, db):
     lastname = request.json['lastname']
     return register_helper_not_none(username, password, firstname, lastname, db)
 
-def register_helper_not_none(username, password, firstname, lastname db):
+def register_helper_not_none(username, password, firstname, lastname, db):
     token = db.create_user(firstname, lastname, username, password)
     if token is None:
         return {'response': 'FAILURE', 'flag': 0}, 200

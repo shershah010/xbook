@@ -5,6 +5,7 @@ import re
 
 from db import *
 from login import *
+from register import *
 from execute import *
 
 app = Flask(__name__)
