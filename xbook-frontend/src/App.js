@@ -53,6 +53,12 @@ class App extends React.Component {
       case 'register':
         this.components.push(<Register
           key={this.components.length}></Register>)
+      case 'logout':
+        this.state = {
+          username: null,
+          token: null
+        };
+        message = 'Successful ' + message;
       default:
         this.displayResponse(message);
         this.displayCommand();

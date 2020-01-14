@@ -8,7 +8,8 @@ class Database_Manager():
                                      user='root',
                                      password='Pizza.network1',
                                      port=3307,
-                                     db='xbook')
+                                     db='xbook',
+                                     autocommit=True)
         self.cursor = connection.cursor()
         self.cursor.execute('USE xbook;')
 
@@ -40,7 +41,7 @@ class Database_Manager():
 
     def about_me(self, token):
         if token is None:
-            return None
+            return 'Permission denied'
         sql = """
             SELECT username FROM Users
             WHERE token=%s
@@ -48,7 +49,7 @@ class Database_Manager():
         self.cursor.execute(sql, (token,))
         results = self.cursor.fetchone()
         if results is None:
-            return None
+            return 'Permission denied'
         return results[0] # returns the username
 
     def not_unique_user(self, username):
@@ -58,6 +59,22 @@ class Database_Manager():
         """
         results = self.cursor.execute(sql, (username,))
         return results is None or len(results) == 0
+
+    def logout(self, token):
+        if token is None:
+            return 'not logged in'
+        self.update_token(token)
+        return 'logout'
+
+    def update_token(self, token):
+        sql = """
+            UPDATE Users
+            SET token = %s
+            WHERE token = %s
+        """
+        secret = secrets.token_hex(32)
+        self.cursor.execute(sql, (secret, token))
+        return secret
 
   # mysql -uroot -p -h 35.247.63.129 \
   #   --ssl-ca=./ssl_certificates/server-ca.pem --ssl-cert=./ssl_certificates/client-cert.pem \
