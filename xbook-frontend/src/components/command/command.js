@@ -16,7 +16,7 @@ class Command extends React.Component {
     if (this.props.username !== null && this.props.username !== undefined) {
       this.handle = this.props.username + ' ' + this.handle;
     }
-    this.specialCMDs = ['login'];
+    this.specialCMDs = ['login', 'register'];
   }
 
   sendToBackend(command) {

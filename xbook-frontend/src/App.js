@@ -9,8 +9,9 @@ import './App.scss';
 
 import Command from './components/command/command';
 import Response from './components/response/response';
-import Policy from './components/policy/policy';
 import Login from './components/login/login';
+import Register from './components/register/register';
+import Policy from './components/policy/policy';
 
 class App extends React.Component {
 
@@ -49,6 +50,11 @@ class App extends React.Component {
           key={this.components.length}
           onEnter={this.handleLogin.bind(this)}></Login>);
         break;
+      case 'register':
+        this.components.push(<Register
+          key={this.components.length}
+          onEnter={this.handleRegister.bind(this)}></Register>);
+        break;
       case 'logout':
         this.state = {
           username: null,
@@ -75,6 +81,24 @@ class App extends React.Component {
     }
     this.displayCommand();
     this.forceUpdate();
+  }
+
+  handleRegister(flag, username, token) {
+    switch (flag) {
+      case 0:
+        this.displayResponse('Username already taken.');
+        this.displayCommand();
+        this.forceUpdate();
+        break;
+      case 1:
+        this.displayResponse('Backend Error');
+        this.displayCommand();
+        this.forceUpdate();
+        break;
+      case 2:
+        this.handleLogin(username, token);
+        break;
+    }
   }
 
   render() {

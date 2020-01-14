@@ -5,6 +5,7 @@ import re
 
 from db import *
 from login import *
+from register import *
 from execute import *
 
 app = Flask(__name__)
@@ -20,6 +21,11 @@ def execute():
 @app.route('/login', methods=['POST'])
 def login():
     response, status = login_helper(request, database_manager)
+    return jsonify(response), status
+
+@app.route('/register', methods=['POST'])
+def register():
+    response, status = register_helper(request, database_manager)
     return jsonify(response), status
 
 if __name__ == '__main__':

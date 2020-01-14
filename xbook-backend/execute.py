@@ -16,9 +16,7 @@ def clean_command(input):
     return input.strip()
 
 def get_response(command, token, db):
-    if command == 'register':
-        pass
-    elif command == 'logout':
+    if command == 'logout':
         return {'response': db.logout(token)}, 200
     elif command == 'aboutme':
         return {'response': db.about_me(token)}, 200

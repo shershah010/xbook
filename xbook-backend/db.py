@@ -1,5 +1,6 @@
 import pymysql
 import secrets
+import bcrypt
 
 class Database_Manager():
     def __init__(self):
@@ -14,13 +15,29 @@ class Database_Manager():
 
     def get_token(self, username, password):
         sql = """
-            SELECT token FROM Users
+            SELECT token, password FROM Users
             WHERE username=%s
-            AND password=%s
         """
-        self.cursor.execute(sql, (username, password))
+        self.cursor.execute(sql, (username,))
         results = self.cursor.fetchone()
-        return results[0] # returns the token
+        if results is None:
+            return None
+        if bcrypt.checkpw(password.encode('utf8'), results[1].encode('utf8')):
+            return results[0] # returns the token
+        else:
+            return None
+
+    def create_user(self, firstname, lastname, username, password):
+        if not self.unique_user(username):
+            return None
+        sql = """
+            INSERT INTO Users (token, firstname, lastname, username, password)
+            VALUES (%s, %s, %s, %s, %s)
+        """
+        token = secrets.token_hex(32)
+        hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
+        self.cursor.execute(sql, (token, firstname, lastname, username, hashed_password))
+        return 'success'
 
     def about_me(self, token):
         if token is None:
@@ -34,6 +51,15 @@ class Database_Manager():
         if results is None:
             return 'Permission denied'
         return results[0] # returns the username
+
+    def unique_user(self, username):
+        sql = """
+            SELECT * FROM Users
+            WHERE username=%s
+        """
+        self.cursor.execute(sql, (username,))
+        results = self.cursor.fetchall()
+        return results is None or results is () or len(results) == 0
 
     def logout(self, token):
         if token is None:
@@ -51,6 +77,4 @@ class Database_Manager():
         self.cursor.execute(sql, (secret, token))
         return secret
 
-  # mysql -uroot -p -h 35.247.63.129 \
-  #   --ssl-ca=./ssl_certificates/server-ca.pem --ssl-cert=./ssl_certificates/client-cert.pem \
-  #   --ssl-key=./ssl_certificates/client-key.pem
+  # mysql -uroot -p -h 35.247.63.129 --ssl-ca=./ssl_certificates/server-ca.pem --ssl-cert=./ssl_certificates/client-cert.pem --ssl-key=./ssl_certificates/client-key.pem
