@@ -7,6 +7,7 @@ class Command extends React.Component {
 
   backendUrl = null;
   handle = null;
+  specialCMDs = null;
 
   constructor(props) {
     super(props);
@@ -15,6 +16,7 @@ class Command extends React.Component {
     if (this.props.username !== null && this.props.username !== undefined) {
       this.handle = this.props.username + ' ' + this.handle;
     }
+    this.specialCMDs = ['login'];
   }
 
   sendToBackend(command) {
@@ -43,8 +45,8 @@ class Command extends React.Component {
       span.removeChild(input);
       span.innerHTML += command;
 
-      if (command === 'login') {
-        this.props.onEnter('login', this.handle);
+      if (this.specialCMDs.includes(command)) {
+        this.props.onEnter(command);
         return;
       }
 

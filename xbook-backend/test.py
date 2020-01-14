@@ -46,7 +46,7 @@ class Test(unittest.TestCase):
         response, status = login_helper_not_none('user_temp', 'bad_password', database_manager)
         self.assertTrue(response['response'] == 'SUCCESS')
         self.assertTrue(status == 200)
-        self.assertTrue(response['token'] == '0000000000')
+        self.assertTrue(len(response['token']) == 64)
 
 
 if __name__ == '__main__':
