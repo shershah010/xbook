@@ -4,7 +4,9 @@ import './response.scss';
 class Response extends React.Component {
   render() {
     return (
-      <pre>{this.props.mess}</pre>
+      <div>
+        <pre>{this.props.mess}</pre>
+      </div>
     );
   }
 }
