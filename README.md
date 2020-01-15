@@ -1,5 +1,5 @@
 # XBook
-A terminal-esque interface for Facebook
+A terminal-esque social networking site
 
 | master | staging |
 |--------|-------- |
@@ -25,7 +25,7 @@ firebase deploy
 ```
 
 ## Backend
-The backend is Python with Flask. Right now it is simple as it is only one endpoint. Because most of the web app is interfacing with Facebook, the backend has few uses.
+The backend is Python with Flask. Password encryption uses bcrypt. The main file holds only the endpoints and passes the information onto specialized files. The database in MySQL 5.7 hosted on GCP.
 
 ## Testing
 The frontend tests are in jest but used through react's interface. All frontend tests should have `.test.js` extension. To run frontend tests go to the `xbook-frontend` directory and run the command `npm test`.
