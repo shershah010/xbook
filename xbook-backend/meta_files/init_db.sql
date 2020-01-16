@@ -20,16 +20,16 @@ CREATE TABLE IF NOT EXISTS Users(
 );
 
 CREATE TABLE IF NOT EXISTS Friends(
-  origin VARCHAR(10) NOT NULL,
-  destination VARCHAR(10) NOT NULL,
+  origin VARCHAR(50) NOT NULL,
+  destination VARCHAR(50) NOT NULL,
   FOREIGN KEY (origin) REFERENCES Users(username),
   FOREIGN KEY (destination) REFERENCES Users(username)
 );
 
 CREATE TABLE IF NOT EXISTS Messages(
   id INT NOT NULL AUTO_INCREMENT,
-  origin VARCHAR(10) NOT NULL,
-  destination VARCHAR(10) NOT NULL,
+  origin VARCHAR(50) NOT NULL,
+  destination VARCHAR(50) NOT NULL,
   message VARCHAR(4000) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (origin) REFERENCES Users(username),
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Messages(
 
 CREATE TABLE IF NOT EXISTS Posts(
   id INT NOT NULL AUTO_INCREMENT,
-  origin VARCHAR(10) NOT NULL,
+  origin VARCHAR(50) NOT NULL,
   message VARCHAR(4000) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (origin) REFERENCES Users(username)
@@ -46,8 +46,9 @@ CREATE TABLE IF NOT EXISTS Posts(
 
 CREATE TABLE IF NOT EXISTS Comments(
   id INT NOT NULL AUTO_INCREMENT,
-  origin VARCHAR(10) NOT NULL,
+  origin VARCHAR(50) NOT NULL,
   post_id INT NOT NULL,
+  message VARCHAR(4000) NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (origin) REFERENCES Users(username),
   FOREIGN KEY (post_id) REFERENCES Posts(id)

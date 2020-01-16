@@ -18,9 +18,7 @@ def clean_command(input):
         return None
     name = cmd_array[0]
     args = [token for token in cmd_array[1:] if token[0] == '-']
-    message = ''
-    for token in cmd_array[len(args):]:
-        message += token
+    message = ' '.join(cmd_array[len(args) + 1:])
     return (name.lower(), args, message)
 
 def get_response(command_package, token, db):
@@ -33,23 +31,25 @@ def get_response(command_package, token, db):
         return {'response': db.get_username(token)}, 200
     elif command == 'friends':
         pass
-    elif command == 'message':
-        return {'response': self.message(token, args, message)}, 200
+    elif command == 'messages':
+        return {'response': handle_message(token, args, message, db)}, 200
     elif command == 'posts':
         pass
     else:
         return {'response': 'BAD COMMAND'}, 200
 
-def message(token, args, message):
-    if args == '-c':
+def handle_message(token, args, message, db):
+    if '-c' in args:
         destination = message.split(' ')[0]
         message = ' '.join(message.split(' ')[1:])
         return db.create_message(token, destination, message)
-    elif args == '-r':
+    elif '-r' in args:
         return db.read_message(token, message)
-    elif args == '-u':
+    elif '-u' in args:
         id = message.split(' ')[0]
         message = ' '.join(message.split(' ')[1:])
         return db.update_message(token, id, message)
-    elif args == '-d':
+    elif '-d' in args:
         return db.delete_message(token, message)
+    else:
+        return db.read_message(token, '*')

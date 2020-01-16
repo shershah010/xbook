@@ -13,6 +13,15 @@ class Database_Manager():
         self.cursor = connection.cursor()
         self.cursor.execute('USE xbook;')
 
+    def sql_pretty_display(self, header, sql_output):
+        sql_output = [[x for x in xs] for xs in sql_output]
+        sql_output.insert(0, header)
+        col_width = max([max([len(str(word)) for word in row]) for row in sql_output]) + 2  # padding
+        pretty_output = ''
+        for row in sql_output:
+            pretty_output += "".join(str(word).ljust(col_width) for word in row) + '\n'
+        return pretty_output
+
     def get_token(self, username, password):
         sql = """
             SELECT token, password FROM Users
@@ -37,7 +46,7 @@ class Database_Manager():
         token = secrets.token_hex(32)
         hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
         self.cursor.execute(sql, (token, firstname, lastname, username, hashed_password))
-        return 'success'
+        return token
 
     def get_username(self, token):
         if token is None:
@@ -59,7 +68,7 @@ class Database_Manager():
         """
         self.cursor.execute(sql, (username,))
         results = self.cursor.fetchall()
-        return results is None or results is () or len(results) == 0
+        return len(results) == 1
 
     def logout(self, token):
         if token is None:
@@ -79,6 +88,8 @@ class Database_Manager():
 
     def create_message(self, token, destination, message):
         username = self.get_username(token)
+        if username == 'Permission denied':
+            return 'FAILURE'
         if not self.unique_user(destination):
             return 'FAILURE'
         sql = """
@@ -87,5 +98,48 @@ class Database_Manager():
         """
         self.cursor.execute(sql, (username, destination, message))
         return 'SUCCESS'
+
+    def read_message(self, token, id):
+        username = self.get_username(token)
+        if not self.unique_user(username):
+            return 'FAILURE'
+        sql = """
+            SELECT * FROM Messages
+            WHERE origin = %s
+            OR destination = %s
+        """
+        if id != '*':
+            sql += 'AND id = %s'
+            self.cursor.execute(sql, (username, username, int(id, base=10)))
+        else:
+            self.cursor.execute(sql, (username, username))
+        header = ['id', 'sender', 'reciever', 'message']
+        return self.sql_pretty_display(header, self.cursor.fetchall())
+
+    def update_message(self, token, id, message):
+        username = self.get_username(token)
+        if not self.unique_user(username):
+            return 'FAILURE'
+        sql = """
+            UPDATE Messages
+            SET message = %s
+            WHERE origin = %s
+            AND id = %s
+        """
+        self.cursor.execute(sql, (message, username, int(id, base=10)))
+        return 'SUCCESS'
+
+    def delete_message(self, token, id):
+        username = self.get_username(token)
+        if not self.unique_user(username):
+            return 'FAILURE'
+        sql = """
+            DELETE FROM Messages
+            WHERE origin = %s
+            AND id = %s
+        """
+        self.cursor.execute(sql, (username, int(id, base=10)))
+        return 'SUCCESS'
+
 
   # mysql -uroot -p -h 35.247.63.129 --ssl-ca=./ssl_certificates/server-ca.pem --ssl-cert=./ssl_certificates/client-cert.pem --ssl-key=./ssl_certificates/client-key.pem
