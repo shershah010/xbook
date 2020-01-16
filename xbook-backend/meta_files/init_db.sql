@@ -16,39 +16,39 @@ CREATE TABLE IF NOT EXISTS Users(
   firstname VARCHAR(50) NOT NULL,
   lastname VARCHAR(50) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  PRIMARY KEY (token)
+  PRIMARY KEY (username)
 );
 
 CREATE TABLE IF NOT EXISTS Friends(
   origin VARCHAR(10) NOT NULL,
   destination VARCHAR(10) NOT NULL,
-  FOREIGN KEY (origin) REFERENCES Users(token),
-  FOREIGN KEY (destination) REFERENCES Users(token)
+  FOREIGN KEY (origin) REFERENCES Users(username),
+  FOREIGN KEY (destination) REFERENCES Users(username)
 );
 
 CREATE TABLE IF NOT EXISTS Messages(
-  id VARCHAR(10) NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   origin VARCHAR(10) NOT NULL,
   destination VARCHAR(10) NOT NULL,
   message VARCHAR(4000) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (origin) REFERENCES Users(token),
-  FOREIGN KEY (destination) REFERENCES Users(token)
+  FOREIGN KEY (origin) REFERENCES Users(username),
+  FOREIGN KEY (destination) REFERENCES Users(username)
 );
 
 CREATE TABLE IF NOT EXISTS Posts(
-  id VARCHAR(10) NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   origin VARCHAR(10) NOT NULL,
   message VARCHAR(4000) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (origin) REFERENCES Users(token)
+  FOREIGN KEY (origin) REFERENCES Users(username)
 );
 
 CREATE TABLE IF NOT EXISTS Comments(
-  id VARCHAR(10) NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
   origin VARCHAR(10) NOT NULL,
-  post_id VARCHAR(10) NOT NULL,
+  post_id INT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (origin) REFERENCES Users(token),
+  FOREIGN KEY (origin) REFERENCES Users(username),
   FOREIGN KEY (post_id) REFERENCES Posts(id)
 );

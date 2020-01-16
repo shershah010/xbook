@@ -39,7 +39,7 @@ class Database_Manager():
         self.cursor.execute(sql, (token, firstname, lastname, username, hashed_password))
         return 'success'
 
-    def about_me(self, token):
+    def get_username(self, token):
         if token is None:
             return 'Permission denied'
         sql = """
@@ -76,5 +76,16 @@ class Database_Manager():
         secret = secrets.token_hex(32)
         self.cursor.execute(sql, (secret, token))
         return secret
+
+    def create_message(self, token, destination, message):
+        username = self.get_username(token)
+        if not self.unique_user(destination):
+            return 'FAILURE'
+        sql = """
+            INSERT INTO Messages (origin, destination, message)
+            VALUES (%s, %s, %s)
+        """
+        self.cursor.execute(sql, (username, destination, message))
+        return 'SUCCESS'
 
   # mysql -uroot -p -h 35.247.63.129 --ssl-ca=./ssl_certificates/server-ca.pem --ssl-cert=./ssl_certificates/client-cert.pem --ssl-key=./ssl_certificates/client-key.pem
