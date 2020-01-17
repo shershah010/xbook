@@ -50,6 +50,11 @@ class Command extends React.Component {
         return;
       }
 
+      if (this.props.token === null) {
+        this.props.onEnter('Permission denied');
+        return
+      }
+
       this.sendToBackend(command).then(message => {
         if (message['response'] === 'BAD COMMAND') {
           this.props.onEnter(command + ': command not found');

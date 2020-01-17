@@ -56,10 +56,10 @@ class App extends React.Component {
           onEnter={this.handleRegister.bind(this)}></Register>);
         break;
       case 'logout':
-        this.state = {
+        this.setState({
           username: null,
           token: null
-        };
+        });
         message = 'Successful ' + message;
       default:
         this.displayResponse(message);
@@ -69,7 +69,6 @@ class App extends React.Component {
   }
 
   handleLogin(username, token) {
-    console.log(username, token);
     if (username === null && token === null) {
       this.displayResponse('Incorrect username or password');
     } else {

@@ -29,6 +29,23 @@ class Test(unittest.TestCase):
         self.assertTrue(response['response'] == 'user_temp')
         self.assertTrue(status == 200)
 
+    def test_clean_command_empty(self):
+        result = clean_command('')
+        self.assertTrue(result is None)
+
+    def test_clean_command_spaces_only(self):
+        result = clean_command('     ')
+        self.assertTrue(result is None)
+
+    def test_clean_command_name_only(self):
+        name, _, _ = clean_command('  HereIsACommand   ')
+        self.assertTrue(name == 'hereisacommand')
+
+    def test_clean_command_with_args_only(self):
+        name, args, _ = clean_command('aCommand -r -t     -a')
+        self.assetTrue(name == 'acommand')
+        self.assetTrue(args == ['-r', '-t', '-a'])
+
     #
     #   LOGIN
     #
