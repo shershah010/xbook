@@ -23,6 +23,12 @@ class Test(unittest.TestCase):
         self.assertTrue(response['response'] == 'BAD COMMAND')
         self.assertTrue(status == 200)
 
+    def test_execute_helper_aboutme(self):
+        response, status = login_helper_not_none('user_temp', 'bad_password', database_manager)
+        response, status = execute_helper_not_none('aboutme', response['token'], database_manager)
+        self.assertTrue(response['response'] == 'user_temp')
+        self.assertTrue(status == 200)
+
     #
     #   LOGIN
     #
