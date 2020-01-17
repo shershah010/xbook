@@ -239,6 +239,16 @@ class Database_Manager():
         if not self.unique_user(username, 1):
             return 'FAILURE'
         sql = """
+            SELECT * FROM Friends
+            WHERE accepted = 0
+            AND origin = %s
+            and destination = %s
+        """
+        self.cursor.execute(sql, (friend, username))
+        results = self.cursor.fetchall()
+        if len(results) != 1:
+            return 'FAILURE'
+        sql = """
             UPDATE Friends
             SET accepted = 1
             WHERE origin = %s
@@ -262,7 +272,7 @@ class Database_Manager():
             AND destination = %s)
             OR (destination = %s
             AND origin = %s))
-            AND APPROVED = 1
+            AND accepted = 1
         """
         self.cursor.execute(sql, (username, friend, username, friend))
         return 'SUCCESS'
@@ -288,7 +298,7 @@ class Database_Manager():
             OR destination = %s
         """
         self.cursor.execute(sql, (username, username))
-        header = ['sender', 'reciever', 'approved']
+        header = ['sender', 'reciever', 'accepted']
         return self.sql_pretty_display(header, self.cursor.fetchall())
 
   # mysql -uroot -p -h 35.247.63.129 --ssl-ca=./ssl_certificates/server-ca.pem --ssl-cert=./ssl_certificates/client-cert.pem --ssl-key=./ssl_certificates/client-key.pem
