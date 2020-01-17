@@ -34,7 +34,7 @@ def get_response(command_package, token, db):
     elif command == 'messages':
         return {'response': handle_message(token, args, message, db)}, 200
     elif command == 'posts':
-        pass
+        return {'response': handle_post(token, args, message, db)}, 200
     else:
         return {'response': 'BAD COMMAND'}, 200
 
@@ -53,3 +53,17 @@ def handle_message(token, args, message, db):
         return db.delete_message(token, message)
     else:
         return db.read_message(token, '*')
+
+def handle_post(token, args, message, db):
+    if '-c' in args:
+        return db.create_post(token, message)
+    elif '-r' in args:
+        return db.read_post(message, is_token=False)
+    elif '-u' in args:
+        id = message.split(' ')[0]
+        message = ' '.join(message.split(' ')[1:])
+        return db.update_post(token, id, message)
+    elif '-d' in args:
+        return db.delete_post(token, id)
+    else:
+        return db.read_post(token, is_token=True)
