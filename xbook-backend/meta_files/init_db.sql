@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS Users(
 CREATE TABLE IF NOT EXISTS Friends(
   origin VARCHAR(50) NOT NULL,
   destination VARCHAR(50) NOT NULL,
+  accepted BOOLEAN NOT NULL,
   FOREIGN KEY (origin) REFERENCES Users(username),
   FOREIGN KEY (destination) REFERENCES Users(username)
 );

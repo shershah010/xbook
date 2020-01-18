@@ -175,7 +175,7 @@ class Database_Manager():
             WHERE origin = %s
             AND id = %s
         """
-        self.cursor.execute(sql, (message, username, id))
+        self.cursor.execute(sql, (message, username, int(id, base=10)))
         return 'SUCCESS'
 
     def delete_post(self, token, id):
@@ -187,7 +187,118 @@ class Database_Manager():
             WHERE origin = %s
             AND id = %s
         """
-        self.cursor.execute(sql, (username, id))
+        self.cursor.execute(sql, (username, int(id, base=10)))
         return 'SUCCESS'
+
+    def create_comment(self, token, post_id, message):
+        username = self.get_username(token)
+        if not self.unique_user(username, 1):
+            return 'FAILURE'
+        sql = """
+            INSERT INTO Comments (origin, post_id, message)
+            VALUES (%s, %s, %s)
+        """
+        self.cursor.execute(sql, (username, int(post_id, 10), message))
+        return 'SUCCESS'
+
+    def read_comment(self, id):
+        sql = """
+            SELECT * FROM Comments
+            WHERE post_id = %s
+        """
+        self.cursor.execute(sql, (int(id, 10),))
+        return self.sql_pretty_display(self.cursor.fetchall())
+
+    def update_comment(self, token, id, message):
+        username = self.get_username(token)
+        if not self.unique_user(username, 1):
+            return 'FAILURE'
+        sql = """
+            UPDATE Comments
+            SET message = %s
+            WHERE username = %s
+            AND id = %s
+        """
+        self.cursor.execute(sql, (message, username, int(id, 10)))
+        return 'SUCCESS'
+
+    def delete_comment(self, token, id):
+        username = self.get_username(token)
+        if not self.unique_user(username, 1):
+            return 'FAILURE'
+        sql = """
+            DELETE FROM Comments
+            WHERE origin = %s
+            AND id = %s
+        """
+        self.cursor.execute(sql, (username, int(id, 10)))
+        return 'SUCCESS'
+
+    def approve_friend(self, token, friend):
+        username = self.get_username(token)
+        if not self.unique_user(username, 1):
+            return 'FAILURE'
+        sql = """
+            SELECT * FROM Friends
+            WHERE accepted = 0
+            AND origin = %s
+            and destination = %s
+        """
+        self.cursor.execute(sql, (friend, username))
+        results = self.cursor.fetchall()
+        if len(results) != 1:
+            return 'FAILURE'
+        sql = """
+            UPDATE Friends
+            SET accepted = 1
+            WHERE origin = %s
+            AND destination = %s
+        """
+        self.cursor.execute(sql, (friend, username))
+        sql = """
+            INSERT INTO Friends (origin, destination, accepted)
+            VALUES (%s, %s, 1)
+        """
+        self.cursor.execute(sql, (username, friend))
+        return 'SUCCESS'
+
+    def remove_friend(self, token, friend):
+        username = self.get_username(token)
+        if not self.unique_user(username, 1):
+            return 'FAILURE'
+        sql = """
+            DELETE FROM Friends
+            WHERE ((origin = %s
+            AND destination = %s)
+            OR (destination = %s
+            AND origin = %s))
+            AND accepted = 1
+        """
+        self.cursor.execute(sql, (username, friend, username, friend))
+        return 'SUCCESS'
+
+    def send_friend(self, token, friend):
+        username = self.get_username(token)
+        if not self.unique_user(username, 1):
+            return 'FAILURE'
+        sql = """
+            INSERT INTO Friends (origin, destination, accepted)
+            VALUE (%s, %s, 0)
+        """
+        self.cursor.execute(sql, (username, friend))
+        return 'SUCCESS'
+
+    def read_friend(self, token):
+        username = self.get_username(token)
+        if not self.unique_user(username, 1):
+            return 'FAILURE'
+        sql = """
+            SELECT * FROM Friends
+            WHERE origin = %s
+            OR destination = %s
+        """
+        self.cursor.execute(sql, (username, username))
+        header = ['sender', 'reciever', 'accepted']
+        return self.sql_pretty_display(header, self.cursor.fetchall())
 
   # mysql -uroot -p -h 35.247.63.129 --ssl-ca=./ssl_certificates/server-ca.pem --ssl-cert=./ssl_certificates/client-cert.pem --ssl-key=./ssl_certificates/client-key.pem

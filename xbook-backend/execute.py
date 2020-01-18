@@ -30,11 +30,13 @@ def get_response(command_package, token, db):
     elif command == 'aboutme':
         return {'response': db.get_username(token)}, 200
     elif command == 'friends':
-        pass
+        return {'response': handle_friend(token, args, message, db)}, 200
     elif command == 'messages':
         return {'response': handle_message(token, args, message, db)}, 200
     elif command == 'posts':
         return {'response': handle_post(token, args, message, db)}, 200
+    elif command == 'comments':
+        return {'response': handle_comment(token, args, message, db)}, 200
     else:
         return {'response': 'BAD COMMAND'}, 200
 
@@ -67,3 +69,27 @@ def handle_post(token, args, message, db):
         return db.delete_post(token, id)
     else:
         return db.read_post(token, is_token=True)
+
+def handle_comment(token, args, message, db):
+    id = message.split(' ')[0]
+    message = ' '.join(message.split(' ')[1:])
+    if '-c' in args:
+        return db.create_comment(token, id, message)
+    elif '-r' in args:
+        return db.read_comment(id)
+    elif '-u' in args:
+        return db.update_comment(token, id, message)
+    elif '-d' in args:
+        return db.delete_comment(token, id)
+    else:
+        return db.read_comment(id)
+
+def handle_friend(token, args, username, db):
+    if '-a' in args:
+        return db.approve_friend(token, username)
+    elif '-r' in args:
+        return db.remove_friend(token, username)
+    elif '-s' in args:
+        return db.send_friend(token, username)
+    else:
+        return db.read_friend(token)
