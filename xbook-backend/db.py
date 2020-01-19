@@ -7,7 +7,7 @@ class Database_Manager():
         connection = pymysql.connect(host='127.0.0.1',
                                      user='root',
                                      password='Pizza.network1',
-                                     port=3307,
+                                     port=3306,
                                      db='xbook',
                                      autocommit=True)
         self.cursor = connection.cursor()
