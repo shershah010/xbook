@@ -57,6 +57,9 @@ class Register extends React.Component {
     if (e.key === 'Enter') {
       this.set('firstname');
       this.show('lastname');
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
     }
   }
 
@@ -64,6 +67,9 @@ class Register extends React.Component {
     if (e.key === 'Enter') {
       this.set('lastname');
       this.show('username');
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
     }
   }
 
@@ -71,6 +77,9 @@ class Register extends React.Component {
     if (e.key === 'Enter') {
       this.set('username');
       this.show('password')
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
     }
   }
 
@@ -85,6 +94,9 @@ class Register extends React.Component {
           this.props.onEnter(message['flag'], this.data.username, message['token']);
         }
       });
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
     }
   }
 

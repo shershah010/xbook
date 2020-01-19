@@ -16,6 +16,7 @@ import Policy from './components/policy/policy';
 class App extends React.Component {
 
   components = [];
+  commands = [];
   state = {
     username: null,
     token: null
@@ -25,6 +26,7 @@ class App extends React.Component {
     super(props);
     this.components.push(<Command
       key='0'
+      commands={this.commands}
       onEnter={this.handleCommand.bind(this)}
       token={this.props.token}></Command>);
   }
@@ -38,12 +40,18 @@ class App extends React.Component {
   displayCommand() {
     this.components.push(<Command
       key={this.components.length}
+      commands={this.commands}
       onEnter={this.handleCommand.bind(this)}
       username={this.state.username}
       token={this.state.token}></Command>);
   }
 
-  handleCommand(message) {
+  addCommand(command) {
+    this.commands.push(command.trim());
+  }
+
+  handleCommand(command, message) {
+    this.addCommand(command);
     switch (message) {
       case 'login':
         this.components.push(<Login
