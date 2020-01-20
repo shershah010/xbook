@@ -39,7 +39,7 @@ class Register extends React.Component {
     const elVal = input.value;
 
     span.removeChild(input);
-    if (element !== 'password') {
+    if (element !== 'password' && element !== 'repassword') {
       span.innerHTML += elVal;
     }
 
@@ -57,6 +57,9 @@ class Register extends React.Component {
     if (e.key === 'Enter') {
       this.set('firstname');
       this.show('lastname');
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
     }
   }
 
@@ -64,19 +67,40 @@ class Register extends React.Component {
     if (e.key === 'Enter') {
       this.set('lastname');
       this.show('username');
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
     }
   }
 
   onUsernameEnter(e) {
     if (e.key === 'Enter') {
       this.set('username');
-      this.show('password')
+      this.show('password');
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
     }
   }
 
   onPasswordEnter(e) {
     if (e.key === 'Enter') {
       this.set('password');
+      this.show('repassword');
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
+    }
+  }
+
+  onPasswordRenter(e) {
+    if (e.key == 'Enter') {
+      this.set('repassword');
+
+      if (this.data['password'] !== this.data['repassword']) {
+        this.props.onEnter(3, null, null);
+        return;
+      }
 
       this.backendRegister().then(message => {
         if (message['response'] === 'FAILURE') {
@@ -85,6 +109,9 @@ class Register extends React.Component {
           this.props.onEnter(message['flag'], this.data.username, message['token']);
         }
       });
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
     }
   }
 
@@ -124,6 +151,16 @@ class Register extends React.Component {
               className="password cmd"
               onBlur={this.setFocus}
               onKeyDown={this.onPasswordEnter.bind(this)}
+              type='password'
+              autoFocus>
+              </input>
+          </span>
+          <br />
+          <span className="hidden">password again:
+            <input
+              className="repassword cmd"
+              onBlur={this.setFocus}
+              onKeyDown={this.onPasswordRenter.bind(this)}
               type='password'
               autoFocus>
               </input>

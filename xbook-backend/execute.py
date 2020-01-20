@@ -14,10 +14,10 @@ def execute_helper_not_none(command, token, db):
 
 def clean_command(input):
     cmd_array = input.strip().split(' ')
-    if len(cmd_array) == 0:
+    if len(cmd_array) == 0 or cmd_array[0] == '':
         return None
     name = cmd_array[0]
-    args = [token for token in cmd_array[1:] if token[0] == '-']
+    args = [token for token in cmd_array[1:] if len(token) > 0 and token[0] == '-']
     message = ' '.join(cmd_array[len(args) + 1:])
     return (name.lower(), args, message)
 

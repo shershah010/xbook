@@ -8,6 +8,7 @@ class Command extends React.Component {
   backendUrl = null;
   handle = null;
   specialCMDs = null;
+  index = -1;
 
   constructor(props) {
     super(props);
@@ -17,6 +18,7 @@ class Command extends React.Component {
       this.handle = this.props.username + ' ' + this.handle;
     }
     this.specialCMDs = ['login', 'register'];
+    this.index = this.props.commands.length;
   }
 
   sendToBackend(command) {
@@ -35,33 +37,51 @@ class Command extends React.Component {
       });
   }
 
-  execute(e) {
+  execute(value) {
+    const command = value;
+    const inputs = document.getElementsByClassName('cmd');
+    const input = inputs[inputs.length - 1];
+    const span = input.parentNode;
+
+    span.removeChild(input);
+    span.innerHTML += command;
+
+    if (this.specialCMDs.includes(command)) {
+      this.props.onEnter(command, command);
+      return;
+    }
+
+    if (this.props.token === null) {
+      this.props.onEnter(command, 'Permission denied');
+      return;
+    }
+
+    this.sendToBackend(command).then(message => {
+      if (message['response'] === 'BAD COMMAND') {
+        this.props.onEnter(command, command + ': command not found');
+      } else {
+        this.props.onEnter(command, message['response']);
+      }
+    });
+  }
+
+  handleKeyPress(e) {
     if (e.key === 'Enter') {
-      const command = e.currentTarget.value;
-      const inputs = document.getElementsByClassName('cmd');
-      const input = inputs[inputs.length - 1];
-      const span = input.parentNode;
-
-      span.removeChild(input);
-      span.innerHTML += command;
-
-      if (this.specialCMDs.includes(command)) {
-        this.props.onEnter(command);
-        return;
+      this.execute(e.currentTarget.value);
+    } else if (e.key === 'ArrowUp') {
+      if (this.index > 0) {
+        this.index -= 1;
+        e.currentTarget.value = this.props.commands[this.index];
       }
-
-      if (this.props.token === null) {
-        this.props.onEnter('Permission denied');
-        return
+    } else if (e.key === 'ArrowDown') {
+      if (this.index < this.props.commands.length) {
+        this.index += 1;
+        const val = this.props.commands[this.index];
+        e.currentTarget.value = val ? val : '';
       }
-
-      this.sendToBackend(command).then(message => {
-        if (message['response'] === 'BAD COMMAND') {
-          this.props.onEnter(command + ': command not found');
-        } else {
-          this.props.onEnter(message['response']);
-        }
-      });
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(e.currentTarget.value, '');
+      return;
     }
   }
 
@@ -71,7 +91,7 @@ class Command extends React.Component {
         <span>{this.handle}
           <input
             className='cmd'
-            onKeyDown={this.execute.bind(this)}
+            onKeyDown={this.handleKeyPress.bind(this)}
             type='text'
             autoFocus>
           </input>

@@ -25,7 +25,7 @@ class Database_Manager():
     def get_token(self, username, password):
         sql = """
             SELECT token, password FROM Users
-            WHERE username=%s
+            WHERE username = %s
         """
         self.cursor.execute(sql, (username,))
         results = self.cursor.fetchone()

@@ -55,6 +55,9 @@ class Login extends React.Component {
       const password = passwords[passwords.length - 1];
       password.parentNode.classList.remove('hidden');
       password.focus();
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(null, null);
+      return;
     }
   }
 
@@ -79,6 +82,9 @@ class Login extends React.Component {
           this.props.onEnter(this.username, message['token']);
         }
       });
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(null, null);
+      return;
     }
   }
 
