@@ -71,6 +71,41 @@ class Test(unittest.TestCase):
         self.assertTrue(status == 200)
         self.assertTrue(len(response['token']) == 64)
 
+    #
+    #   REGISTER
+    #
+
+    def test_register_username_taken(self):
+        response, status = register_helper_not_none('user', 'some_password', 'first', 'last', database_manager)
+        self.assertTrue(status == 200)
+        self.assertTrue(response['response'] == 'FAILURE')
+        self.assertTrue(response['flag'] == 0)
+
+    def test_register_username_taken(self):
+        response, status = register_helper_not_none('user', 'some_password', 'first', 'last', database_manager)
+        self.assertTrue(status == 200)
+        self.assertTrue(response['response'] == 'FAILURE')
+        self.assertTrue(response['flag'] == 0)
+
+    #
+    #   DB
+    #
+
+    def test_get_token(self):
+        result = database_manager.get_token('user', 'bad_password')
+        self.assertTrue(result is not None)
+
+    def test_get_username(self):
+        result = database_manager.get_username('some random token')
+        self.assertTrue(result == 'Permission denied')
+
+    def test_unique_user_registration(self):
+        result = database_manager.unique_user('user', free=0)
+        self.assertTrue(result == False)
+
+    def test_unique_user_login(self):
+        result = database_manager.unique_user('user', free=1)
+        self.assertTrue(result)    
 
 if __name__ == '__main__':
     unittest.main()

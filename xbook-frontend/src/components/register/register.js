@@ -21,6 +21,10 @@ class Register extends React.Component {
   }
 
   backendRegister() {
+    if (this.data['password'] !== this.data['repassword']) {
+      this.props.onEnter(3, null, null);
+      return;
+    }
     const headers = {headers: {'Access-Control-Allow-Origin': '*'}};
     return axios.post(this.backendUrl + 'register', this.data, headers)
       .then(response => {
@@ -39,7 +43,7 @@ class Register extends React.Component {
     const elVal = input.value;
 
     span.removeChild(input);
-    if (element !== 'password') {
+    if (element !== 'password' || element !== 'repassword') {
       span.innerHTML += elVal;
     }
 
@@ -86,7 +90,15 @@ class Register extends React.Component {
   onPasswordEnter(e) {
     if (e.key === 'Enter') {
       this.set('password');
+      this.show('repassword');
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(2, null, null);
+      return;
+    }
+  }
 
+  onPasswordRenter(e) {
+    if (e.key == 'Enter') {
       this.backendRegister().then(message => {
         if (message['response'] === 'FAILURE') {
           this.props.onEnter(message['flag'], null, null);
@@ -136,6 +148,16 @@ class Register extends React.Component {
               className="password cmd"
               onBlur={this.setFocus}
               onKeyDown={this.onPasswordEnter.bind(this)}
+              type='password'
+              autoFocus>
+              </input>
+          </span>
+          <br />
+          <span className="hidden">password again:
+            <input
+              className="repassword cmd"
+              onBlur={this.setFocus}
+              onKeyDown={this.onPasswordRenter.bind(this)}
               type='password'
               autoFocus>
               </input>

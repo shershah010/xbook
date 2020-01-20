@@ -105,6 +105,11 @@ class App extends React.Component {
       case 2:
         this.handleLogin(username, token);
         break;
+      case 3:
+        this.displayResponse('Passwords do not match.');
+        this.displayCommand();
+        this.forceUpdate();
+        break;
     }
   }
 
