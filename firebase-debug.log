@@ -1,0 +1,112 @@
+[debug] [2020-01-20T05:36:44.766Z] ----------------------------------------------------------------------
+[debug] [2020-01-20T05:36:44.767Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2020-01-20T05:36:44.767Z] CLI Version:   7.9.0
+[debug] [2020-01-20T05:36:44.767Z] Platform:      linux
+[debug] [2020-01-20T05:36:44.767Z] Node Version:  v10.16.0
+[debug] [2020-01-20T05:36:44.768Z] Time:          Sun Jan 19 2020 21:36:44 GMT-0800 (Pacific Standard Time)
+[debug] [2020-01-20T05:36:44.768Z] ----------------------------------------------------------------------
+[debug] [2020-01-20T05:36:44.768Z] 
+[error] Error: [object Object] is not a Firebase command
+[debug] [2020-01-20T05:36:44.776Z] TypeError: str.toLowerCase is not a function
+    at didYouMean (/usr/local/lib/node_modules/firebase-tools/node_modules/didyoumean/didYouMean-1.2.1.js:147:48)
+    at suggestCommands (/usr/local/lib/node_modules/firebase-tools/lib/index.js:28:22)
+    at Command.<anonymous> (/usr/local/lib/node_modules/firebase-tools/lib/index.js:57:14)
+    at Command.listener (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:360:8)
+    at Command.emit (events.js:198:13)
+    at Command.EventEmitter.emit (domain.js:448:20)
+    at Command.parseArgs (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:801:12)
+    at Command.parse (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:563:21)
+    at Object.<anonymous> (/usr/local/lib/node_modules/firebase-tools/lib/bin/firebase.js:98:22)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:829:12)
+    at startup (internal/bootstrap/node.js:283:19)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-01-20T05:36:57.219Z] ----------------------------------------------------------------------
+[debug] [2020-01-20T05:36:57.221Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2020-01-20T05:36:57.221Z] CLI Version:   7.9.0
+[debug] [2020-01-20T05:36:57.221Z] Platform:      linux
+[debug] [2020-01-20T05:36:57.221Z] Node Version:  v10.16.0
+[debug] [2020-01-20T05:36:57.221Z] Time:          Sun Jan 19 2020 21:36:57 GMT-0800 (Pacific Standard Time)
+[debug] [2020-01-20T05:36:57.221Z] ----------------------------------------------------------------------
+[debug] [2020-01-20T05:36:57.221Z] 
+[error] Error: [object Object] is not a Firebase command
+[debug] [2020-01-20T05:36:57.227Z] TypeError: str.toLowerCase is not a function
+    at didYouMean (/usr/local/lib/node_modules/firebase-tools/node_modules/didyoumean/didYouMean-1.2.1.js:147:48)
+    at suggestCommands (/usr/local/lib/node_modules/firebase-tools/lib/index.js:28:22)
+    at Command.<anonymous> (/usr/local/lib/node_modules/firebase-tools/lib/index.js:57:14)
+    at Command.listener (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:360:8)
+    at Command.emit (events.js:198:13)
+    at Command.EventEmitter.emit (domain.js:448:20)
+    at Command.parseArgs (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:801:12)
+    at Command.parse (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:563:21)
+    at Object.<anonymous> (/usr/local/lib/node_modules/firebase-tools/lib/bin/firebase.js:98:22)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:829:12)
+    at startup (internal/bootstrap/node.js:283:19)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-01-20T05:38:09.993Z] ----------------------------------------------------------------------
+[debug] [2020-01-20T05:38:09.994Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2020-01-20T05:38:09.994Z] CLI Version:   7.9.0
+[debug] [2020-01-20T05:38:09.994Z] Platform:      linux
+[debug] [2020-01-20T05:38:09.995Z] Node Version:  v10.16.0
+[debug] [2020-01-20T05:38:09.995Z] Time:          Sun Jan 19 2020 21:38:09 GMT-0800 (Pacific Standard Time)
+[debug] [2020-01-20T05:38:09.995Z] ----------------------------------------------------------------------
+[debug] [2020-01-20T05:38:09.995Z] 
+[error] Error: [object Object] is not a Firebase command
+[debug] [2020-01-20T05:38:10.002Z] TypeError: str.toLowerCase is not a function
+    at didYouMean (/usr/local/lib/node_modules/firebase-tools/node_modules/didyoumean/didYouMean-1.2.1.js:147:48)
+    at suggestCommands (/usr/local/lib/node_modules/firebase-tools/lib/index.js:28:22)
+    at Command.<anonymous> (/usr/local/lib/node_modules/firebase-tools/lib/index.js:57:14)
+    at Command.listener (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:360:8)
+    at Command.emit (events.js:198:13)
+    at Command.EventEmitter.emit (domain.js:448:20)
+    at Command.parseArgs (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:801:12)
+    at Command.parse (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:563:21)
+    at Object.<anonymous> (/usr/local/lib/node_modules/firebase-tools/lib/bin/firebase.js:98:22)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:829:12)
+    at startup (internal/bootstrap/node.js:283:19)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2020-01-20T05:41:07.846Z] ----------------------------------------------------------------------
+[debug] [2020-01-20T05:41:07.848Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2020-01-20T05:41:07.848Z] CLI Version:   7.9.0
+[debug] [2020-01-20T05:41:07.848Z] Platform:      linux
+[debug] [2020-01-20T05:41:07.848Z] Node Version:  v10.16.0
+[debug] [2020-01-20T05:41:07.848Z] Time:          Sun Jan 19 2020 21:41:07 GMT-0800 (Pacific Standard Time)
+[debug] [2020-01-20T05:41:07.848Z] ----------------------------------------------------------------------
+[debug] [2020-01-20T05:41:07.848Z] 
+[error] Error: [object Object] is not a Firebase command
+[debug] [2020-01-20T05:41:07.855Z] TypeError: str.toLowerCase is not a function
+    at didYouMean (/usr/local/lib/node_modules/firebase-tools/node_modules/didyoumean/didYouMean-1.2.1.js:147:48)
+    at suggestCommands (/usr/local/lib/node_modules/firebase-tools/lib/index.js:28:22)
+    at Command.<anonymous> (/usr/local/lib/node_modules/firebase-tools/lib/index.js:57:14)
+    at Command.listener (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:360:8)
+    at Command.emit (events.js:198:13)
+    at Command.EventEmitter.emit (domain.js:448:20)
+    at Command.parseArgs (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:801:12)
+    at Command.parse (/usr/local/lib/node_modules/firebase-tools/node_modules/commander/index.js:563:21)
+    at Object.<anonymous> (/usr/local/lib/node_modules/firebase-tools/lib/bin/firebase.js:98:22)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:829:12)
+    at startup (internal/bootstrap/node.js:283:19)
+[error] 
+[error] Error: An unexpected error has occurred.

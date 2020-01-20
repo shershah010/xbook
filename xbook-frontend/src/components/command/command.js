@@ -12,7 +12,7 @@ class Command extends React.Component {
 
   constructor(props) {
     super(props);
-    this.backendUrl = 'http://localhost:8080/';
+    this.backendUrl = 'https://xbook010.appspot.com/';
     this.handle = '>>> ';
     if (this.props.username !== null && this.props.username !== undefined) {
       this.handle = this.props.username + ' ' + this.handle;

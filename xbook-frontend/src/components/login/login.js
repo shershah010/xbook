@@ -10,7 +10,7 @@ class Login extends React.Component {
 
   constructor() {
     super();
-    this.backendUrl = 'http://localhost:8080/';
+    this.backendUrl = 'https://xbook010.appspot.com/';
   }
 
   setFocus() {
