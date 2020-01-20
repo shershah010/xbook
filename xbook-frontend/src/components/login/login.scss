@@ -6,10 +6,12 @@ input[type='text'].username {
   font-size: 16px;
 }
 
-input[type='password'].password {
-  background-color: #000;
-  color: #000;
-  border: 0px;
+input[type='password'] {
+  &.password, &.repassword {
+    background-color: #000;
+    color: #000;
+    border: 0px;
+  }
 }
 
 .hidden {

@@ -21,10 +21,6 @@ class Register extends React.Component {
   }
 
   backendRegister() {
-    if (this.data['password'] !== this.data['repassword']) {
-      this.props.onEnter(3, null, null);
-      return;
-    }
     const headers = {headers: {'Access-Control-Allow-Origin': '*'}};
     return axios.post(this.backendUrl + 'register', this.data, headers)
       .then(response => {
@@ -43,7 +39,7 @@ class Register extends React.Component {
     const elVal = input.value;
 
     span.removeChild(input);
-    if (element !== 'password' || element !== 'repassword') {
+    if (element !== 'password' && element !== 'repassword') {
       span.innerHTML += elVal;
     }
 
@@ -80,7 +76,7 @@ class Register extends React.Component {
   onUsernameEnter(e) {
     if (e.key === 'Enter') {
       this.set('username');
-      this.show('password')
+      this.show('password');
     } else if (e.ctrlKey && e.key === 'c') {
       this.props.onEnter(2, null, null);
       return;
@@ -99,6 +95,13 @@ class Register extends React.Component {
 
   onPasswordRenter(e) {
     if (e.key == 'Enter') {
+      this.set('repassword');
+
+      if (this.data['password'] !== this.data['repassword']) {
+        this.props.onEnter(3, null, null);
+        return;
+      }
+
       this.backendRegister().then(message => {
         if (message['response'] === 'FAILURE') {
           this.props.onEnter(message['flag'], null, null);
