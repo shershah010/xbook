@@ -16,3 +16,5 @@ xbook-backend/htmlcov/
 xbook-backend/dist/
 xbook-backend/build/
 xbook-backend/*.egg-info/
+
+xbook-backend/ssl_certificates

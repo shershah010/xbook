@@ -2,133 +2,101 @@ import React from 'react';
 import './command.scss';
 
 const axios = require('axios');
-const backend_url = 'http://localhost:8080/';
 
 class Command extends React.Component {
 
-  setFocus() {
-    setTimeout(() => {
-      document.getElementsByClassName('cmd')[0].focus();
-    }, 5);
+  backendUrl = null;
+  handle = null;
+  specialCMDs = null;
+  index = -1;
+
+  constructor(props) {
+    super(props);
+    this.backendUrl = 'http://localhost:8080/';
+    this.handle = '>>> ';
+    if (this.props.username !== null && this.props.username !== undefined) {
+      this.handle = this.props.username + ' ' + this.handle;
+    }
+    this.specialCMDs = ['login', 'register'];
+    this.index = this.props.commands.length;
   }
 
-  accessBackend(command) {
-    return axios.post(backend_url + 'execute', {'command': command}, {headers: {'Access-Control-Allow-Origin': '*'}}).then(response => {
-      let message = 'DEFAULT MESSAGE';
-      if (response['status'] === 200) {
+  sendToBackend(command) {
+    const data = {
+      'command': command,
+      'token': this.props.token
+    };
+    const headers = {headers: {'Access-Control-Allow-Origin': '*'}};
+    return axios.post(this.backendUrl + 'execute', data, headers)
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        console.log(error);
+        return {'response': 'BACKEND FAILURE! ' + error};
+      });
+  }
 
+  execute(value) {
+    const command = value;
+    const inputs = document.getElementsByClassName('cmd');
+    const input = inputs[inputs.length - 1];
+    const span = input.parentNode;
+
+    span.removeChild(input);
+    span.innerHTML += command;
+
+    if (this.specialCMDs.includes(command)) {
+      this.props.onEnter(command, command);
+      return;
+    }
+
+    if (this.props.token === null) {
+      this.props.onEnter(command, 'Permission denied');
+      return;
+    }
+
+    this.sendToBackend(command).then(message => {
+      if (message['response'] === 'BAD COMMAND') {
+        this.props.onEnter(command, command + ': command not found');
       } else {
-        message = 'This input was not handled!';
+        this.props.onEnter(command, message['response']);
       }
-      return message;
     });
   }
 
-  execute(e) {
+  handleKeyPress(e) {
     if (e.key === 'Enter') {
-      const command = e.currentTarget.value;
-      let inputs = document.getElementsByClassName('cmd');
-      const input = inputs[inputs.length - 1];
-      const span = input.parentNode;
-      span.removeChild(input);
-      span.innerHTML += command;
-      if (command === 'login') {
-        this.facebookLogin();
-      } else if (command === 'logout') {
-        window.FB.logout(function(response) {
-          console.log(response);
-        });
-      } else if (command === 'policy') {
-        window.location += 'policy';
+      this.execute(e.currentTarget.value);
+    } else if (e.key === 'ArrowUp') {
+      if (this.index > 0) {
+        this.index -= 1;
+        e.currentTarget.value = this.props.commands[this.index];
       }
-      this.accessBackend(command).then(message => {
-        this.props.onEnter(message);
-      });
-    }
-  }
-
-  componentDidMount() {
-    document.addEventListener('FBObjectReady', this.initializeFacebookLogin);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('FBObjectReady', this.initializeFacebookLogin);
-  }
-
-  /**
-   * Init FB object and check Facebook Login status
-   */
-  initializeFacebookLogin = () => {
-    this.FB = window.FB;
-    this.checkLoginStatus();
-  }
-
-  /**
-   * Check login status
-   */
-  checkLoginStatus = () => {
-    this.FB.getLoginStatus(this.facebookLoginHandler);
-  }
-
-  /**
-   * Check login status and call login api is user is not logged in
-   */
-  facebookLogin = () => {
-    if (!this.FB) return;
-
-    this.FB.getLoginStatus(response => {
-      if (response.status === 'connected') {
-        this.facebookLoginHandler(response);
-      } else {
-        const scopeText = `
-          email,
-          groups_access_member_info,
-          publish_to_groups,
-          user_age_range,
-          user_birthday,
-          user_friends,
-          user_gender,
-          user_hometown,
-          user_likes,
-          user_link,
-          user_location,
-          user_photos,
-          user_posts,
-          user_videos`;
-        this.FB.login(this.facebookLoginHandler, {scope: scopeText});
+    } else if (e.key === 'ArrowDown') {
+      if (this.index < this.props.commands.length) {
+        this.index += 1;
+        const val = this.props.commands[this.index];
+        e.currentTarget.value = val ? val : '';
       }
-    }, );
-  }
-
-  /**
-   * Handle login response
-   */
-  facebookLoginHandler = response => {
-    if (response.status === 'connected') {
-      this.FB.api('/me', userData => {
-        let result = {
-          ...response,
-          user: userData
-        };
-        this.props.onLogin(true, result);
-      });
-    } else {
-      this.props.onLogin(false);
+    } else if (e.ctrlKey && e.key === 'c') {
+      this.props.onEnter(e.currentTarget.value, '');
+      return;
     }
   }
 
   render() {
-    let {children} = this.props;
     return (
-      <span>&gt;&gt;&gt;&nbsp;
-        <input
-          className='cmd'
-          onBlur={this.setFocus}
-          onKeyDown={this.execute.bind(this)}
-          type='text'
-          autoFocus>
-        </input>
+      <div>
+        <span>{this.handle}
+          <input
+            className='cmd'
+            onKeyDown={this.handleKeyPress.bind(this)}
+            type='text'
+            autoFocus>
+          </input>
       </span>
+    </div>
     );
   }
 }

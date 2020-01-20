@@ -3,56 +3,123 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 import './App.scss';
 
 import Command from './components/command/command';
 import Response from './components/response/response';
+import Login from './components/login/login';
+import Register from './components/register/register';
 import Policy from './components/policy/policy';
 
 class App extends React.Component {
 
-  displayData = [];
+  components = [];
+  commands = [];
   state = {
     username: null,
-    messages: []
+    token: null
   };
 
-  onFacebookLogin = (loginStatus, resultObject) => {
-    if (loginStatus === true) {
-      this.setState({
-        username: resultObject.user.name
-      });
-    } else {
-      console.log('Facebook login error');
-    }
+  constructor(props) {
+    super(props);
+    this.components.push(<Command
+      key='0'
+      commands={this.commands}
+      onEnter={this.handleCommand.bind(this)}
+      token={this.props.token}></Command>);
   }
 
-  onEnter = (message) => {
-    this.state.messages.push(message);
-    this.setState({
-      messages: this.state.messages
-    })
+  displayResponse(message) {
+    this.components.push(<Response
+      key={this.components.length}
+      mess={message}></Response>);
+  }
+
+  displayCommand() {
+    this.components.push(<Command
+      key={this.components.length}
+      commands={this.commands}
+      onEnter={this.handleCommand.bind(this)}
+      username={this.state.username}
+      token={this.state.token}></Command>);
+  }
+
+  addCommand(command) {
+    this.commands.push(command.trim());
+  }
+
+  handleCommand(command, message) {
+    this.addCommand(command);
+    switch (message) {
+      case 'login':
+        this.components.push(<Login
+          key={this.components.length}
+          onEnter={this.handleLogin.bind(this)}></Login>);
+        break;
+      case 'register':
+        this.components.push(<Register
+          key={this.components.length}
+          onEnter={this.handleRegister.bind(this)}></Register>);
+        break;
+      case 'logout':
+        this.setState({
+          username: null,
+          token: null
+        });
+        message = 'Successful ' + message;
+      default:
+        this.displayResponse(message);
+        this.displayCommand();
+    }
+    this.forceUpdate();
+  }
+
+  handleLogin(username, token) {
+    if (username === null && token === null) {
+      this.displayResponse('Incorrect username or password');
+    } else {
+      this.setState({
+        username: username,
+        token: token,
+      });
+      this.displayResponse('Successful Login');
+    }
+    this.displayCommand();
+    this.forceUpdate();
+  }
+
+  handleRegister(flag, username, token) {
+    switch (flag) {
+      case 0:
+        this.displayResponse('Username already taken.');
+        this.displayCommand();
+        this.forceUpdate();
+        break;
+      case 1:
+        this.displayResponse('Backend Error');
+        this.displayCommand();
+        this.forceUpdate();
+        break;
+      case 2:
+        this.handleLogin(username, token);
+        break;
+      case 3:
+        this.displayResponse('Passwords do not match.');
+        this.displayCommand();
+        this.forceUpdate();
+        break;
+    }
   }
 
   render() {
-    const { username } = this.state;
-    const children = [];
-
-    for (let i = 0; i < this.state.messages.length; i += 1) {
-      children.push(<Response key={i + 'a'} mess={this.state.messages[i]}></Response>);
-      children.push(<Command key={i + 'b'} onLogin={this.onFacebookLogin} onEnter={this.onEnter}></Command>);
-    }
-
     return (
       <div className="App">
         <Router>
           <Switch>
             <Route path='/' exact>
-              <Command onLogin={this.onFacebookLogin} onEnter={this.onEnter}></Command>
-              {children}
+              {this.components}
             </Route>
             <Route path='/policy' component={Policy} />
           </Switch>
